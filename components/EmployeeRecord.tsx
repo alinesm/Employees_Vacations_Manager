@@ -8,7 +8,10 @@ function EmployeeRecord({ handleOpenModal, info }) {
       <p className="col-span-3">{info.name}</p>
       <p className="col-span-4">{info.role}</p>
       <p className="col-span-3">{info.hiringDate}</p>
-      <div className="col-span-1 cursor-pointer" onClick={handleOpenModal}>
+      <div
+        className="col-span-1 cursor-pointer"
+        onClick={() => handleOpenModal(info)}
+      >
         <FaRegFileAlt size={20} />
       </div>
     </div>

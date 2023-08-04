@@ -2,7 +2,15 @@
 import React from "react";
 import AddVacationPeriod from "./AddVacationPeriod";
 
-function ModalEmployeeVacations({ setOpenModal }) {
+function ModalEmployeeVacations({
+  setOpenModal,
+  employeeVacationList,
+  employeeVacationInfo,
+  setEmployeeVacationInfo,
+  setEmployeeVacationList,
+  clickedEmployee,
+}) {
+  console.log("employeeVacationList", employeeVacationList);
   return (
     <div className="bg-modal">
       <div className="modal-container pb-10">
@@ -15,7 +23,12 @@ function ModalEmployeeVacations({ setOpenModal }) {
         <h1 className="text-[#484dff] mb-2 mt-4 px-8 tracking-widest uppercase font-semibold text-sm">
           ADD Vacation
         </h1>
-        <AddVacationPeriod />
+        <AddVacationPeriod
+          employeeVacationInfo={employeeVacationInfo}
+          setEmployeeVacationInfo={setEmployeeVacationInfo}
+          setEmployeeVacationList={setEmployeeVacationList}
+          clickedEmployee={clickedEmployee}
+        />
         <h1 className="text-[#484dff] mb-2 mt-4 px-8 tracking-widest uppercase font-semibold text-sm">
           Jonh Vacation's List
         </h1>
@@ -27,24 +40,18 @@ function ModalEmployeeVacations({ setOpenModal }) {
             <p className="col-span-1">Ref Year</p>
           </div>
 
-          <div className="record grid grid-cols-6 gap-3">
-            <p className="col-span-2">2021-01-01</p>
-            <p className="col-span-2">2021-01-01</p>
-            <p className=" col-span-1">10</p>
-            <p className="col-span-1">1</p>
-          </div>
-          <div className="record grid grid-cols-6 gap-3">
-            <p className="col-span-2">2021-01-01</p>
-            <p className="col-span-2">2021-01-01</p>
-            <p className=" col-span-1">10</p>
-            <p className="col-span-1">1</p>
-          </div>
-          <div className="record grid grid-cols-6 gap-3">
-            <p className="col-span-2">2021-01-01</p>
-            <p className="col-span-2">2021-01-01</p>
-            <p className=" col-span-1">10</p>
-            <p className="col-span-1">1</p>
-          </div>
+          {employeeVacationList?.map((vacationInfo) => (
+            <div className="">
+              {vacationInfo?.vacations?.map((vacation, index) => (
+                <div className="record grid grid-cols-6 gap-3" key={index}>
+                  <p className="col-span-2">{vacation.startVacationDate}</p>
+                  <p className="col-span-2">{vacation.endVacationDate}</p>
+                  <p className="col-span-1">{vacation.duration}</p>
+                  <p className="col-span-1">{vacation.refYear}</p>
+                </div>
+              ))}
+            </div>
+          ))}
         </div>
       </div>
     </div>

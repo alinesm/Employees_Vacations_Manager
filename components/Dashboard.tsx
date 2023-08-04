@@ -28,25 +28,25 @@ const vacationsMock = [
         startVacationDate: "2022-01-01",
         endVacationDate: "2022-01-15",
         duration: 15,
-        currentYear: 1,
+        refYear: 1,
       },
       {
         startVacationDate: "2022-01-16",
         endVacationDate: "2022-01-31",
         duration: 15,
-        currentYear: 1,
+        refYear: 1,
       },
       {
         startVacationDate: "2023-01-01",
         endVacationDate: "2023-01-10",
         duration: 10,
-        currentYear: 2,
+        refYear: 2,
       },
       {
         startVacationDate: "2023-01-11",
         endVacationDate: "2023-01-31",
         duration: 20,
-        currentYear: 2,
+        refYear: 2,
       },
     ],
   },
@@ -58,37 +58,37 @@ const vacationsMock = [
         startVacationDate: "2022-01-01",
         endVacationDate: "2022-01-05",
         duration: 5,
-        currentYear: 1,
+        refYear: 1,
       },
       {
         startVacationDate: "2022-01-06",
         endVacationDate: "2022-01-11",
         duration: 5,
-        currentYear: 1,
+        refYear: 1,
       },
       {
         startVacationDate: "2022-01-12",
         endVacationDate: "2022-01-22",
         duration: 10,
-        currentYear: 1,
+        refYear: 1,
       },
       {
         startVacationDate: "2023-01-01",
         endVacationDate: "2023-01-11",
         duration: 10,
-        currentYear: 2,
+        refYear: 2,
       },
       {
         startVacationDate: "2023-01-12",
         endVacationDate: "2023-01-17",
         duration: 5,
-        currentYear: 2,
+        refYear: 2,
       },
       {
         startVacationDate: "2023-01-18",
         endVacationDate: "2023-01-23",
         duration: 5,
-        currentYear: 2,
+        refYear: 2,
       },
     ],
   },
@@ -102,9 +102,24 @@ function Dashboard() {
     hiringDate: "",
   });
   const [employeesList, setEmployeesList] = useState(employeesDataMock);
+  const [clickedEmployee, setClickedEmployee] = useState({});
+  const [employeeVacationList, setEmployeeVacationList] = useState([]);
+  const [employeeVacationInfo, setEmployeeVacationInfo] = useState({
+    startVacationDate: "",
+    endVacationDate: "",
+    duration: "",
+    refYear: "",
+  });
 
-  function handleOpenModal() {
+  function handleOpenModal(employeeData) {
     setOpenModal(true);
+
+    const filterEmployeeVacations = vacationsMock.filter(
+      (vacation) => vacation.employeeId === employeeData.id
+    );
+    setClickedEmployee(employeeData);
+
+    setEmployeeVacationList(filterEmployeeVacations);
   }
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -126,7 +141,16 @@ function Dashboard() {
         employeesList={employeesList}
       />
 
-      {openModal && <ModalEmployeeVacations setOpenModal={setOpenModal} />}
+      {openModal && (
+        <ModalEmployeeVacations
+          setOpenModal={setOpenModal}
+          employeeVacationList={employeeVacationList}
+          setEmployeeVacationList={setEmployeeVacationList}
+          employeeVacationInfo={employeeVacationInfo}
+          setEmployeeVacationInfo={setEmployeeVacationInfo}
+          clickedEmployee={clickedEmployee}
+        />
+      )}
     </div>
   );
 }
