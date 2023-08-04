@@ -10,7 +10,7 @@
 }
 
 .body {
-  @apply px-10 py-4 bg-gray-50;
+  @apply px-10 py-4 bg-gray-50 w-[800px] m-auto;
 }
 
 .app {
@@ -39,10 +39,22 @@
   @apply text-gray-700 text-sm font-bold mb-2;
 }
 
+.record {
+  @apply text-gray-700 text-sm mb-2;
+}
+
 .button {
   @apply bg-[#484dff] mt-4 hover:bg-blue-700 text-white py-3 px-5 text-xs rounded-full;
 }
 
 .flex-center {
   @apply flex items-center justify-center;
+}
+
+.box {
+  @apply mb-10 border-2  flex flex-col  bg-white rounded-lg shadow-md px-4 py-6;
+}
+
+.gridTable {
+  @apply grid grid-cols-12;
 }

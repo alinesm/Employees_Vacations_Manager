@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 
 function AddEmployee() {
   return (
-    <form className="mb-10 border-2 items-center w-fit flex flex-col bg-white rounded-lg shadow-md px-4 py-6 ">
+    <form className="box">
       <div className="flex-center  gap-5">
         <div>
           <label className="label">Name</label>
