@@ -26,14 +26,14 @@ function AddEmployee() {
         <div>
           <label className="label">Hiring Date</label>
           <input
-            className="input"
+            className="input_date"
             type="date"
             defaultValue={dayjs().format("YYYY-MM-DD")}
             required
           />
         </div>
       </div>
-      <button className="button" type="submit">
+      <button className="button py-1.5 mt-2" type="submit">
         Enviar
       </button>
     </form>

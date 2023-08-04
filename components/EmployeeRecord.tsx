@@ -1,7 +1,7 @@
 import React from "react";
 import { FaRegFileAlt } from "react-icons/fa";
 
-function EmployeeRecord() {
+function EmployeeRecord({ handleOpenModal }) {
   return (
     <>
       <div className="gridTable  record ">
@@ -9,7 +9,7 @@ function EmployeeRecord() {
         <p className="col-span-3">João Almeida Melo</p>
         <p className="col-span-4">Desenvolvedor Web</p>
         <p className="col-span-3">2021-01-01</p>
-        <div className="col-span-1">
+        <div className="col-span-1 cursor-pointer" onClick={handleOpenModal}>
           <FaRegFileAlt size={20} />
         </div>
       </div>

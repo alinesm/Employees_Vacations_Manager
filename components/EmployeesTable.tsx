@@ -2,11 +2,11 @@ import React from "react";
 import EmployeeRecord from "./EmployeeRecord";
 import TableHeader from "./TableHeader";
 
-function EmployeesTable() {
+function EmployeesTable({ handleOpenModal }) {
   return (
     <div className="box">
       <TableHeader />
-      <EmployeeRecord />
+      <EmployeeRecord handleOpenModal={handleOpenModal} />
     </div>
   );
 }

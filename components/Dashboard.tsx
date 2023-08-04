@@ -1,5 +1,8 @@
+"use client";
 import AddEmployee from "./AddEmployee";
 import EmployeesTable from "./EmployeesTable";
+import ModalEmployeeVacations from "./ModalEmployeeVacations";
+import React, { useState } from "react";
 
 const employeesDataMock = [
   {
@@ -92,13 +95,19 @@ const vacationsMock = [
 ];
 
 function Dashboard() {
+  const [openModal, setOpenModal] = useState(false);
+  function handleOpenModal() {
+    setOpenModal(true);
+  }
+
   return (
     <div>
       <p className="title">Register Employee</p>
       <AddEmployee />
 
       <p className="title">Employees List</p>
-      <EmployeesTable />
+      <EmployeesTable handleOpenModal={handleOpenModal} />
+      {openModal && <ModalEmployeeVacations setOpenModal={setOpenModal} />}
     </div>
   );
 }

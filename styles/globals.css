@@ -35,6 +35,10 @@
   @apply bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-2xl focus:ring-blue-500 focus:border-blue-500 block w-full placeholder:text-gray-400 placeholder:font-normal  p-2.5;
 }
 
+.input_date {
+  @apply bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-2xl focus:ring-blue-500 focus:border-blue-500 block w-full placeholder:text-gray-400 placeholder:font-normal  p-2.5;
+}
+
 .label {
   @apply text-gray-700 text-sm font-bold mb-2;
 }
@@ -44,7 +48,7 @@
 }
 
 .button {
-  @apply bg-[#484dff] mt-4 hover:bg-blue-700 text-white py-3 px-5 text-xs rounded-full;
+  @apply bg-[#484dff] hover:bg-blue-700 text-white text-xs rounded-full;
 }
 
 .flex-center {
@@ -57,4 +61,12 @@
 
 .gridTable {
   @apply grid grid-cols-12;
+}
+
+.bg-modal {
+  @apply bg-gray-700/50 fixed flex-center h-[calc(100%-1rem)] max-h-full top-0 left-0 right-0 z-50  w-full overflow-x-hidden overflow-y-auto md:inset-0;
+}
+
+.modal-container {
+  @apply relative z-50 bg-white rounded-lg shadow;
 }
