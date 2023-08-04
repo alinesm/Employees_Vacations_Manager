@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Inter, sans-serif;
+}
+
+.body {
+  @apply px-10 py-4 bg-gray-50;
+}
+
+.app {
+  @apply bg-white px-6 py-4 shadow-sm border mt-10 border-gray-50 rounded-lg z-10;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.head_text {
+  @apply font-bold text-lg text-gray-700;
+}
+
+.desc {
+  @apply text-[#484dff] mb-2 tracking-widest uppercase font-semibold mt-5 text-sm;
+}
