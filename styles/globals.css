@@ -27,6 +27,22 @@
   @apply font-bold text-lg text-gray-700;
 }
 
-.desc {
+.title {
   @apply text-[#484dff] mb-2 tracking-widest uppercase font-semibold mt-5 text-sm;
+}
+
+.input {
+  @apply bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-2xl focus:ring-blue-500 focus:border-blue-500 block w-full placeholder:text-gray-400 placeholder:font-normal  p-2.5;
+}
+
+.label {
+  @apply text-gray-700 text-sm font-bold mb-2;
+}
+
+.button {
+  @apply bg-[#484dff] mt-4 hover:bg-blue-700 text-white py-3 px-5 text-xs rounded-full;
+}
+
+.flex-center {
+  @apply flex items-center justify-center;
 }

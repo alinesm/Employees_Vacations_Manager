@@ -94,10 +94,10 @@ const vacationsMock = [
 function Dashboard() {
   return (
     <div>
-      <p className="desc ">Register Employee</p>
+      <p className="title">Register Employee</p>
       <AddEmployee />
 
-      <p className="desc ">Employees List</p>
+      <p className="title">Employees List</p>
       <EmployeesTable />
     </div>
   );
