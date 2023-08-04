@@ -2,11 +2,17 @@ import React from "react";
 import EmployeeRecord from "./EmployeeRecord";
 import TableHeader from "./TableHeader";
 
-function EmployeesTable({ handleOpenModal }) {
+function EmployeesTable({ handleOpenModal, employeesList }) {
   return (
     <div className="box">
       <TableHeader />
-      <EmployeeRecord handleOpenModal={handleOpenModal} />
+      {employeesList.map((info) => (
+        <EmployeeRecord
+          info={info}
+          key={info.name}
+          handleOpenModal={handleOpenModal}
+        />
+      ))}
     </div>
   );
 }

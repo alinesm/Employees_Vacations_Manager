@@ -1,15 +1,24 @@
 import React from "react";
 import dayjs from "dayjs";
 
-function AddEmployee() {
+function AddEmployee({ handleSubmit, setEmployeeBasicInfo }) {
+  const handleChange = (e) => {
+    setEmployeeBasicInfo((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
   return (
-    <form className="box">
+    <form className="box" onSubmit={handleSubmit}>
       <div className="flex-center  gap-5">
         <div>
           <label className="label">Name</label>
           <input
             className="input"
             type="text"
+            name="name"
+            onChange={handleChange}
             placeholder="Employee Name"
             required
           />
@@ -19,6 +28,8 @@ function AddEmployee() {
           <input
             className="input"
             type="text"
+            name="role"
+            onChange={handleChange}
             placeholder="Employee Role"
             required
           />
@@ -28,6 +39,8 @@ function AddEmployee() {
           <input
             className="input_date"
             type="date"
+            name="hiringDate"
+            onChange={handleChange}
             defaultValue={dayjs().format("YYYY-MM-DD")}
             required
           />

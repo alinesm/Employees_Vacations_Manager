@@ -96,17 +96,36 @@ const vacationsMock = [
 
 function Dashboard() {
   const [openModal, setOpenModal] = useState(false);
+  const [employeeBasicInfo, setEmployeeBasicInfo] = useState({
+    name: "",
+    role: "",
+    hiringDate: "",
+  });
+  const [employeesList, setEmployeesList] = useState(employeesDataMock);
+
   function handleOpenModal() {
     setOpenModal(true);
+  }
+
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setEmployeesList((prev) => [...prev, employeeBasicInfo]);
   }
 
   return (
     <div>
       <p className="title">Register Employee</p>
-      <AddEmployee />
+      <AddEmployee
+        handleSubmit={handleSubmit}
+        setEmployeeBasicInfo={setEmployeeBasicInfo}
+      />
 
       <p className="title">Employees List</p>
-      <EmployeesTable handleOpenModal={handleOpenModal} />
+      <EmployeesTable
+        handleOpenModal={handleOpenModal}
+        employeesList={employeesList}
+      />
+
       {openModal && <ModalEmployeeVacations setOpenModal={setOpenModal} />}
     </div>
   );

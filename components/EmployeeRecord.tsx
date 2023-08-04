@@ -1,37 +1,17 @@
 import React from "react";
 import { FaRegFileAlt } from "react-icons/fa";
 
-function EmployeeRecord({ handleOpenModal }) {
+function EmployeeRecord({ handleOpenModal, info }) {
   return (
-    <>
-      <div className="gridTable  record ">
-        <p className="col-span-1">1</p>
-        <p className="col-span-3">João Almeida Melo</p>
-        <p className="col-span-4">Desenvolvedor Web</p>
-        <p className="col-span-3">2021-01-01</p>
-        <div className="col-span-1 cursor-pointer" onClick={handleOpenModal}>
-          <FaRegFileAlt size={20} />
-        </div>
+    <div className="gridTable  record ">
+      <p className="col-span-1">{info.id}</p>
+      <p className="col-span-3">{info.name}</p>
+      <p className="col-span-4">{info.role}</p>
+      <p className="col-span-3">{info.hiringDate}</p>
+      <div className="col-span-1 cursor-pointer" onClick={handleOpenModal}>
+        <FaRegFileAlt size={20} />
       </div>
-      <div className="gridTable record ">
-        <p className="col-span-1">1</p>
-        <p className="col-span-3">João Almeida Melo</p>
-        <p className="col-span-4">Desenvolvedor Web</p>
-        <p className="col-span-3">2021-01-01</p>
-        <div className="col-span-1">
-          <FaRegFileAlt size={20} />
-        </div>
-      </div>
-      <div className="gridTable  record ">
-        <p className="col-span-1">1</p>
-        <p className="col-span-3">João Almeida Melo</p>
-        <p className="col-span-4">Desenvolvedor Web</p>
-        <p className="col-span-3">2021-01-01</p>
-        <div className="col-span-1">
-          <FaRegFileAlt size={20} />
-        </div>
-      </div>
-    </>
+    </div>
   );
 }
 
