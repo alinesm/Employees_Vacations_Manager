@@ -111,15 +111,15 @@ function Dashboard() {
     refYear: "",
   });
 
-  function handleOpenModal(employeeData) {
+  function handleOpenModal(employeeClicked) {
     setOpenModal(true);
+    setClickedEmployee(employeeClicked);
 
-    const filterEmployeeVacations = vacationsMock.filter(
-      (vacation) => vacation.employeeId === employeeData.id
-    );
-    setClickedEmployee(employeeData);
+    // const filterEmployeeVacations = vacationsMock.filter(
+    //   (vacation) => vacation.employeeId === employeeData.id
+    // );
 
-    setEmployeeVacationList(filterEmployeeVacations);
+    // setEmployeeVacationList(filterEmployeeVacations);
   }
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
