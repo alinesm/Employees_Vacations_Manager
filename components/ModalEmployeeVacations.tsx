@@ -11,7 +11,6 @@ function ModalEmployeeVacations({
   setEmployeeVacationList,
   clickedEmployee,
 }) {
-  //create a fubction to fecth the vacations of the clicked employee
   const fetchEmployeeVacations = async () => {
     try {
       const response = await fetch(

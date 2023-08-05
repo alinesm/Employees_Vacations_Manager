@@ -18,8 +18,8 @@ function AddVacationPeriod({
   async function handleSubmitVacation(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const startDate = dayjs(employeeVacationInfo.startVacationDate);
-    const endDate = dayjs(employeeVacationInfo.endVacationDate);
+    const startDate = dayjs(employeeVacationInfo.start_date);
+    const endDate = dayjs(employeeVacationInfo.end_date);
 
     const duration = endDate.diff(startDate, "day");
 
@@ -31,20 +31,31 @@ function AddVacationPeriod({
     const newVacation = {
       ...employeeVacationInfo,
       duration,
-      refYear,
+      ref_year: refYear,
     };
 
-    setEmployeeVacationList((prevState) => {
-      return prevState.map((employee) => {
-        if (employee.id === clickedEmployee.id) {
-          return {
-            ...employee,
-            vacations: [...employee.vacations, newVacation],
-          };
-        }
-        return employee;
+    try {
+      const response = await fetch("/api/vacations", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...newVacation,
+          employee_id: clickedEmployee.id,
+        }),
       });
-    });
+
+      if (!response.ok) {
+        throw new Error("HTTP error " + response.status);
+      }
+
+      const data = await response.json();
+      setEmployeeVacationList((prev) => [...prev, newVacation]);
+      console.log("data", data);
+    } catch (error) {
+      console.error("Failed to fetch vacations:", error);
+    }
   }
 
   return (
@@ -59,7 +70,7 @@ function AddVacationPeriod({
             <input
               className="input_date h-8"
               type="date"
-              name="startVacationDate"
+              name="start_date"
               onChange={handleChange}
               required
             />
@@ -70,7 +81,7 @@ function AddVacationPeriod({
               <input
                 className="input_date h-8"
                 type="date"
-                name="endVacationDate"
+                name="end_date"
                 onChange={handleChange}
                 required
               />
