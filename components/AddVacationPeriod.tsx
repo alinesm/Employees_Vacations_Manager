@@ -7,9 +7,10 @@ function AddVacationPeriod({
   setEmployeeVacationInfo,
   setEmployeeVacationList,
   clickedEmployee,
+  inputDateError,
+  setInputDateError,
+  // daysAvailable,
 }) {
-  const [inputDateError, setInputDateError] = useState("");
-
   function handleChange(e) {
     setEmployeeVacationInfo((prev) => ({
       ...prev,
@@ -68,8 +69,8 @@ function AddVacationPeriod({
       }
 
       const data = await response.json();
-      setEmployeeVacationList((prev) => [...prev, newVacation]);
-      console.log("data", data);
+      // setEmployeeVacationList((prev) => [...prev, newVacation]);
+      console.log("post employee vacations", data);
     } catch (error) {
       console.error("Failed to fetch vacations:", error);
     }
@@ -89,6 +90,7 @@ function AddVacationPeriod({
               type="date"
               name="start_date"
               onChange={handleChange}
+              // disabled={daysAvailable === 0}
               required
             />
           </div>
@@ -100,14 +102,27 @@ function AddVacationPeriod({
                 type="date"
                 name="end_date"
                 onChange={handleChange}
+                // disabled={daysAvailable === 0}
                 required
               />
-              <button className="button ml-8 px-4 h-8" type="submit">
+              <button
+                className="button ml-8 px-4 h-8"
+                type="submit"
+                // disabled={daysAvailable === 0}
+              >
                 Save
               </button>
             </div>
           </div>
         </div>
+        {/* {daysAvailable ? (
+          <p className="text-gray-500 text-xs pt-1">
+            Days available: {daysAvailable}
+          </p>
+        ) : (
+          <p className="text-red-500 text-xs pt-1">No vacation's days left</p>
+        )} */}
+
         <p className="text-red-500 text-xs pt-1">{inputDateError}</p>
       </div>
     </form>

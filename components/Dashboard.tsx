@@ -58,7 +58,6 @@ function Dashboard() {
 
       const data = await response.json();
       setEmployeesList(data);
-      console.log("data", data);
       return data;
     } catch (error) {
       console.error(`Fetch error: ${error}`);
@@ -69,8 +68,6 @@ function Dashboard() {
   useEffect(() => {
     fetchEmployees();
   }, []);
-
-  console.log("employees", employeesList);
 
   return (
     <div>
