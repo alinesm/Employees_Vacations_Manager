@@ -2,20 +2,20 @@
 import AddEmployee from "./AddEmployee";
 import EmployeesTable from "./EmployeesTable";
 import ModalEmployeeVacations from "./ModalEmployeeVacations";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const employeesDataMock = [
   {
     id: 1,
     name: "João",
     role: "Desenvolvedor",
-    hiringDate: "2021-01-01",
+    hiring_date: "2021-01-01",
   },
   {
     id: 2,
     name: "Maria",
     role: "Desenvolvedora",
-    hiringDate: "2021-01-01",
+    hiring_date: "2021-01-01",
   },
 ];
 
@@ -99,9 +99,9 @@ function Dashboard() {
   const [employeeBasicInfo, setEmployeeBasicInfo] = useState({
     name: "",
     role: "",
-    hiringDate: "",
+    hiring_date: "",
   });
-  const [employeesList, setEmployeesList] = useState(employeesDataMock);
+  const [employeesList, setEmployeesList] = useState([]);
   const [clickedEmployee, setClickedEmployee] = useState({});
   const [employeeVacationList, setEmployeeVacationList] = useState([]);
   const [employeeVacationInfo, setEmployeeVacationInfo] = useState({
@@ -126,6 +126,30 @@ function Dashboard() {
     event.preventDefault();
     setEmployeesList((prev) => [...prev, employeeBasicInfo]);
   }
+
+  async function fetchEmployees() {
+    try {
+      const response = await fetch("/api/employees");
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setEmployeesList(data);
+      console.log("data", data);
+      return data;
+    } catch (error) {
+      console.error(`Fetch error: ${error}`);
+      throw error;
+    }
+  }
+
+  useEffect(() => {
+    fetchEmployees();
+  }, []);
+
+  console.log("employees", employeesList);
 
   return (
     <div>

@@ -39,7 +39,7 @@ function AddEmployee({ handleSubmit, setEmployeeBasicInfo }) {
           <input
             className="input_date"
             type="date"
-            name="hiringDate"
+            name="hiring_date"
             onChange={handleChange}
             defaultValue={dayjs().format("YYYY-MM-DD")}
             required

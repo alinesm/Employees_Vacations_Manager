@@ -25,8 +25,8 @@ function AddVacationPeriod({
 
     const today = dayjs();
 
-    const hiringDate = dayjs(clickedEmployee.hiringDate);
-    const refYear = today.diff(hiringDate, "year");
+    const hiring_date = dayjs(clickedEmployee.hiring_date);
+    const refYear = today.diff(hiring_date, "year");
 
     const newVacation = {
       ...employeeVacationInfo,
