@@ -1,6 +1,6 @@
 "use client";
 import dayjs from "dayjs";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 function AddVacationPeriod({
   employeeVacationInfo,
@@ -8,6 +8,8 @@ function AddVacationPeriod({
   setEmployeeVacationList,
   clickedEmployee,
 }) {
+  const [inputDateError, setInputDateError] = useState("");
+
   function handleChange(e) {
     setEmployeeVacationInfo((prev) => ({
       ...prev,
@@ -21,7 +23,22 @@ function AddVacationPeriod({
     const startDate = dayjs(employeeVacationInfo.start_date);
     const endDate = dayjs(employeeVacationInfo.end_date);
 
+    if (endDate.isBefore(startDate)) {
+      setInputDateError("The end date must be after the start date");
+      return;
+    }
+
     const duration = endDate.diff(startDate, "day");
+
+    if (duration < 5) {
+      setInputDateError("The minimum duration of a vacation is 5 days");
+      return;
+    }
+
+    if (duration > 30) {
+      setInputDateError("The maximum duration of a vacation is 30 days");
+      return;
+    }
 
     const today = dayjs();
 
@@ -91,9 +108,7 @@ function AddVacationPeriod({
             </div>
           </div>
         </div>
-        <p className="text-red-500 text-xs pt-1">
-          vacations is not allowed for this employee
-        </p>
+        <p className="text-red-500 text-xs pt-1">{inputDateError}</p>
       </div>
     </form>
   );
