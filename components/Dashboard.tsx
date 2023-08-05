@@ -124,7 +124,17 @@ function Dashboard() {
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setEmployeesList((prev) => [...prev, employeeBasicInfo]);
+    const response = await fetch("/api/employees", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(employeeBasicInfo),
+    });
+    const data = await response.json();
+    console.log("data", data);
+
+    setEmployeesList((prev) => [...prev, data]);
   }
 
   async function fetchEmployees() {
