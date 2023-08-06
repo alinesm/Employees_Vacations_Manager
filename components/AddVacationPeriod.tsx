@@ -5,11 +5,10 @@ import React, { useEffect, useState } from "react";
 function AddVacationPeriod({
   employeeVacationInfo,
   setEmployeeVacationInfo,
-  setEmployeeVacationList,
   clickedEmployee,
   inputDateError,
   setInputDateError,
-  // daysAvailable,
+  employeeVacationList,
 }) {
   function handleChange(e) {
     setEmployeeVacationInfo((prev) => ({
@@ -69,7 +68,6 @@ function AddVacationPeriod({
       }
 
       const data = await response.json();
-      // setEmployeeVacationList((prev) => [...prev, newVacation]);
       console.log("post employee vacations", data);
     } catch (error) {
       console.error("Failed to fetch vacations:", error);
@@ -90,7 +88,7 @@ function AddVacationPeriod({
               type="date"
               name="start_date"
               onChange={handleChange}
-              // disabled={daysAvailable === 0}
+              disabled={!employeeVacationList.isAvailableToVacation}
               required
             />
           </div>
@@ -102,26 +100,27 @@ function AddVacationPeriod({
                 type="date"
                 name="end_date"
                 onChange={handleChange}
-                // disabled={daysAvailable === 0}
+                disabled={!employeeVacationList.isAvailableToVacation}
                 required
               />
               <button
                 className="button ml-8 px-4 h-8"
                 type="submit"
-                // disabled={daysAvailable === 0}
+                disabled={!employeeVacationList.isAvailableToVacation}
               >
                 Save
               </button>
             </div>
           </div>
         </div>
-        {/* {daysAvailable ? (
+        {employeeVacationList.daysAvailable > 0 &&
+        employeeVacationList?.vacations?.length > 0 ? (
           <p className="text-gray-500 text-xs pt-1">
-            Days available: {daysAvailable}
+            Days available: {employeeVacationList.daysAvailable}
           </p>
         ) : (
           <p className="text-red-500 text-xs pt-1">No vacation's days left</p>
-        )} */}
+        )}
 
         <p className="text-red-500 text-xs pt-1">{inputDateError}</p>
       </div>

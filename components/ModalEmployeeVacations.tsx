@@ -19,13 +19,15 @@ function ModalEmployeeVacations({
         `/api/vacations/employee/${clickedEmployee.id}`
       );
       if (!response.ok) {
-        setEmployeeVacationList([]);
-        setInputDateError("Employee has not worked for 12 months yet");
-
         throw new Error(`HTTP error! status: ${response.status}`);
       }
+
       const data = await response.json();
-      console.log("data vacation list", data);
+
+      if (!data.isAvailableToVacation) {
+        setInputDateError("Employee is not allowed to take vacations");
+      }
+
       setEmployeeVacationList(data);
       return data;
     } catch (error) {
@@ -54,11 +56,10 @@ function ModalEmployeeVacations({
         <AddVacationPeriod
           employeeVacationInfo={employeeVacationInfo}
           setEmployeeVacationInfo={setEmployeeVacationInfo}
-          setEmployeeVacationList={setEmployeeVacationList}
-          // daysAvailable={employeeVacationList?.availableQtyDays}
           clickedEmployee={clickedEmployee}
           inputDateError={inputDateError}
           setInputDateError={setInputDateError}
+          employeeVacationList={employeeVacationList}
         />
         <h1 className="text-[#484dff] mb-2 mt-4 px-8 tracking-widest uppercase font-semibold text-sm">
           {clickedEmployee.name} Vacation's List
@@ -70,25 +71,24 @@ function ModalEmployeeVacations({
             <p className="col-span-1">Duration</p>
             <p className="col-span-1">Ref Year</p>
           </div>
-
-          {employeeVacationList.length > 0 ? (
-            employeeVacationList?.map((vacation, index) => (
-              <div className="record grid grid-cols-6 gap-3" key={index}>
-                <p className="col-span-2">
-                  {dayjs(vacation.start_date).format("YYYY-MM-DD")}
-                </p>
-                <p className="col-span-2">
-                  {dayjs(vacation.end_date).format("YYYY-MM-DD")}
-                </p>
-                <p className="col-span-1">{vacation.duration}</p>
-                <p className="col-span-1">{vacation.ref_year}</p>
-              </div>
-            ))
-          ) : (
-            <p>No vacations registered yet</p>
+          {employeeVacationList?.vacations?.length === 0 && (
+            <p className="text-gray-400 font-medium text-center text-xs pt-1">
+              No vacations registered
+            </p>
           )}
 
-          {/* {employeeVacationList?.vacations?.map((vacation, index) => ( */}
+          {employeeVacationList?.vacations?.map((vacation, index) => (
+            <div className="record grid grid-cols-6 gap-3" key={index}>
+              <p className="col-span-2">
+                {dayjs(vacation.start_date).format("YYYY-MM-DD")}
+              </p>
+              <p className="col-span-2">
+                {dayjs(vacation.end_date).format("YYYY-MM-DD")}
+              </p>
+              <p className="col-span-1">{vacation.duration}</p>
+              <p className="col-span-1">{vacation.ref_year}</p>
+            </div>
+          ))}
         </div>
       </div>
     </div>

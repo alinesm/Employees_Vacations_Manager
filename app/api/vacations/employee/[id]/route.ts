@@ -17,18 +17,46 @@ export async function GET(
     const today = dayjs();
     const monthsWorked = today.diff(hiringDate, "month");
 
-    if (monthsWorked < 12) {
-      return new NextResponse("Employee has not worked for 12 months yet", {
-        status: 400,
-      });
-    }
-
-    const [rows, fields] = await db.query(
+    const [vacations, fields] = await db.query(
       "SELECT * FROM vacations WHERE employee_id = ?",
       [id]
     );
-    console.log(rows);
-    return new NextResponse(JSON.stringify(rows));
+
+    const yearsWorked = Math.floor(today.diff(hiringDate, "month") / 12);
+    const lastHireBirthday = hiringDate.add(yearsWorked, "year");
+    const nextHireBirthday = lastHireBirthday.add(1, "year");
+
+    const filterVacations = vacations.filter((vacation) => {
+      const vacationStart = dayjs(vacation.start_date);
+      const vacationEnd = dayjs(vacation.end_date);
+      return (
+        (vacationStart.isAfter(lastHireBirthday) ||
+          vacationStart.isSame(lastHireBirthday)) &&
+        (vacationEnd.isBefore(nextHireBirthday) ||
+          vacationEnd.isSame(nextHireBirthday))
+      );
+    });
+
+    const sumOfScheduledVacationsDays = filterVacations.reduce(
+      (acc, curr) => acc + curr.duration,
+      0
+    );
+    const availableQtyDays = 30 - sumOfScheduledVacationsDays;
+
+    let isAvailableToVacation = true;
+    if (monthsWorked < 12 || availableQtyDays <= 0) {
+      isAvailableToVacation = false;
+    }
+
+    const vacationsInfo = {
+      isAvailableToVacation,
+      availableQtyDays,
+      vacations,
+    };
+
+    console.log("vacationsInfo", vacationsInfo);
+
+    return new NextResponse(JSON.stringify(vacationsInfo));
   } catch (err) {
     console.error(err);
     return new NextResponse("Database Error", { status: 500 });
