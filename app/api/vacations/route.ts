@@ -89,13 +89,13 @@ export async function POST(request: Request) {
     const currentPeriod = filteredVacations.length + 1;
 
     if (duration > MAX_DAYS) {
-      return new NextResponse(`Invalid duration. Maximum ${MAX_DAYS} days`, {
+      return new NextResponse(`Invalid duration. Maximum of ${MAX_DAYS} days`, {
         status: 400,
       });
     }
 
     if (duration < MIN_VACATION_DURATION) {
-      return new NextResponse("Invalid duration. Minimum 5 is days", {
+      return new NextResponse("Invalid duration. Minimum of 5 days", {
         status: 400,
       });
     }
@@ -169,7 +169,7 @@ export async function POST(request: Request) {
       ref_year
     );
     if (!createdVacation)
-      return new NextResponse("Database Error", { status: 500 });
+      return new NextResponse("Error: vacation not created", { status: 500 });
 
     return new NextResponse(JSON.stringify(createdVacation), { status: 201 });
   } catch (err) {
