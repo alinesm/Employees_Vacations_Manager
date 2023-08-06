@@ -41,7 +41,6 @@ function AddEmployee({ handleSubmit, setEmployeeBasicInfo }) {
             type="date"
             name="hiring_date"
             onChange={handleChange}
-            defaultValue={dayjs().format("YYYY-MM-DD")}
             required
           />
         </div>
