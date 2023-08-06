@@ -12,22 +12,25 @@ function ModalEmployeeVacations({
   clickedEmployee,
 }) {
   const [inputDateError, setInputDateError] = useState("");
+  const [loadingVacationsList, setLoadingVacationsList] = useState(false);
+  const [reloadVacationsList, setReloadVacationsList] = useState(false);
 
   const fetchEmployeeVacations = async () => {
     try {
+      setReloadVacationsList(false);
+      setLoadingVacationsList(true);
+
       const response = await fetch(
         `/api/vacations/employee/${clickedEmployee.id}`
       );
+
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        response.text().then((text) => setInputDateError(text));
+        throw new Error("HTTP error " + response.status);
       }
 
       const data = await response.json();
-
-      if (!data.isAvailableToVacation) {
-        setInputDateError("Employee is not allowed to take vacations");
-      }
-
+      setLoadingVacationsList(false);
       setEmployeeVacationList(data);
       return data;
     } catch (error) {
@@ -38,7 +41,11 @@ function ModalEmployeeVacations({
 
   useEffect(() => {
     fetchEmployeeVacations();
-  }, [setOpenModal]);
+  }, [reloadVacationsList]);
+
+  useEffect(() => {
+    fetchEmployeeVacations();
+  }, []);
 
   console.log("employeeVacationList", employeeVacationList);
   return (
@@ -60,6 +67,7 @@ function ModalEmployeeVacations({
           inputDateError={inputDateError}
           setInputDateError={setInputDateError}
           employeeVacationList={employeeVacationList}
+          setReloadVacationsList={setReloadVacationsList}
         />
         <h1 className="text-[#484dff] mb-2 mt-4 px-8 tracking-widest uppercase font-semibold text-sm">
           {clickedEmployee.name} Vacation's List
@@ -77,6 +85,7 @@ function ModalEmployeeVacations({
             </p>
           )}
 
+          {loadingVacationsList && <p>Loading...</p>}
           {employeeVacationList?.vacations?.map((vacation, index) => (
             <div className="record grid grid-cols-6 gap-3" key={index}>
               <p className="col-span-2">
