@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
-import db from "@/utils/db";
 import dayjs from "dayjs";
+import repository from "@/app/api/repositories";
+import { generateParsedDates } from "@/app/api/helpers";
 
 export async function GET(
   request: Request,
@@ -8,23 +9,12 @@ export async function GET(
 ) {
   const id = params.id;
   try {
-    const [employeeInfo, fields1] = await db.query(
-      "SELECT hiring_date FROM employees WHERE id = ?",
-      [id]
-    );
+    const employeeInfo = await repository.getEmployeeInfo(id);
 
-    const hiringDate = dayjs(employeeInfo[0].hiring_date);
-    const today = dayjs();
-    const monthsWorked = today.diff(hiringDate, "month");
+    const { lastHireBirthday, nextHireBirthday, monthsWorked } =
+      generateParsedDates(employeeInfo);
 
-    const [vacations, fields] = await db.query(
-      "SELECT * FROM vacations WHERE employee_id = ?",
-      [id]
-    );
-
-    const yearsWorked = Math.floor(today.diff(hiringDate, "month") / 12);
-    const lastHireBirthday = hiringDate.add(yearsWorked, "year");
-    const nextHireBirthday = lastHireBirthday.add(1, "year");
+    const vacations = await repository.getVacations(id);
 
     const filterVacations = vacations.filter((vacation) => {
       const vacationStart = dayjs(vacation.start_date);
@@ -43,18 +33,11 @@ export async function GET(
     );
     const availableQtyDays = 30 - sumOfScheduledVacationsDays;
 
-    let isAvailableToVacation = true;
-    if (monthsWorked < 12 || availableQtyDays <= 0) {
-      isAvailableToVacation = false;
-    }
-
     const vacationsInfo = {
-      isAvailableToVacation,
+      monthsWorked,
       availableQtyDays,
       vacations,
     };
-
-    console.log("vacationsInfo", vacationsInfo);
 
     return new NextResponse(JSON.stringify(vacationsInfo));
   } catch (err) {

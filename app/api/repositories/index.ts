@@ -1,17 +1,17 @@
 import db from "@/utils/db";
 
-async function getEmployeeInfo(employee_id) {
+async function getEmployeeInfo(id) {
   const [employeeInfo, fields] = await db.query(
     "SELECT hiring_date FROM employees WHERE id = ?",
-    [employee_id]
+    [id]
   );
   return employeeInfo;
 }
 
-async function getVacations(employee_id) {
+async function getVacations(id) {
   const [vacations, fields] = await db.query(
     "SELECT * FROM vacations WHERE employee_id = ?",
-    [employee_id]
+    [id]
   );
   return vacations;
 }
