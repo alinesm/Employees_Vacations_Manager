@@ -11,6 +11,8 @@ function Dashboard() {
     role: "",
     hiring_date: "",
   });
+  const [loadingEmployeeList, setLoadingEmployeeList] = useState(false);
+  const [reloadEmployeeList, setReloadEmployeeList] = useState(false);
   const [employeesList, setEmployeesList] = useState([]);
   const [clickedEmployee, setClickedEmployee] = useState({});
   const [employeeVacationList, setEmployeeVacationList] = useState([]);
@@ -26,7 +28,7 @@ function Dashboard() {
     setClickedEmployee(employeeClicked);
   }
 
-  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function handleCreateEmployee(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     try {
@@ -41,8 +43,7 @@ function Dashboard() {
         throw new Error("HTTP error " + response.status);
       }
       const data = await response.json();
-      // setEmployeesList((prev) => [...prev, employeeBasicInfo]);
-      console.log("data", data);
+      setReloadEmployeeList(true);
     } catch (error) {
       console.error("Failed to fetch employees:", error);
     }
@@ -50,20 +51,31 @@ function Dashboard() {
 
   async function fetchEmployees() {
     try {
+      setLoadingEmployeeList(true);
+      setReloadEmployeeList(false);
+
       const response = await fetch("/api/employees");
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-
       const data = await response.json();
+
       setEmployeesList(data);
+      setLoadingEmployeeList(false);
+
       return data;
     } catch (error) {
       console.error(`Fetch error: ${error}`);
       throw error;
     }
   }
+
+  useEffect(() => {
+    if (reloadEmployeeList) {
+      fetchEmployees();
+    }
+  }, [reloadEmployeeList]);
 
   useEffect(() => {
     fetchEmployees();
@@ -73,15 +85,18 @@ function Dashboard() {
     <div>
       <p className="title">Register Employee</p>
       <AddEmployee
-        handleSubmit={handleSubmit}
+        handleSubmit={handleCreateEmployee}
         setEmployeeBasicInfo={setEmployeeBasicInfo}
       />
 
       <p className="title">Employees List</p>
-      <EmployeesTable
-        handleOpenModal={handleOpenModal}
-        employeesList={employeesList}
-      />
+      {loadingEmployeeList && <p>Loading...</p>}
+      {!loadingEmployeeList && employeesList.length > 0 && (
+        <EmployeesTable
+          handleOpenModal={handleOpenModal}
+          employeesList={employeesList}
+        />
+      )}
 
       {openModal && (
         <ModalEmployeeVacations
