@@ -44,6 +44,11 @@ function Dashboard() {
       }
       const data = await response.json();
       setReloadEmployeeList(true);
+      setEmployeeBasicInfo({
+        name: "",
+        role: "",
+        hiring_date: "",
+      });
     } catch (error) {
       console.error("Failed to fetch employees:", error);
     }
