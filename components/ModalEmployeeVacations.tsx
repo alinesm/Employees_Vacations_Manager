@@ -86,18 +86,20 @@ function ModalEmployeeVacations({
           )}
 
           {loadingVacationsList && <p>Loading...</p>}
-          {employeeVacationList?.vacations?.map((vacation, index) => (
-            <div className="record grid grid-cols-6 gap-3" key={index}>
-              <p className="col-span-2">
-                {dayjs(vacation.start_date).format("YYYY-MM-DD")}
-              </p>
-              <p className="col-span-2">
-                {dayjs(vacation.end_date).format("YYYY-MM-DD")}
-              </p>
-              <p className="col-span-1">{vacation.duration}</p>
-              <p className="col-span-1">{vacation.ref_year}</p>
-            </div>
-          ))}
+          {!loadingVacationsList &&
+            employeeVacationList?.vacations?.length > 0 &&
+            employeeVacationList?.vacations?.map((vacation, index) => (
+              <div className="record grid grid-cols-6 gap-3" key={index}>
+                <p className="col-span-2">
+                  {dayjs(vacation.start_date).format("YYYY-MM-DD")}
+                </p>
+                <p className="col-span-2">
+                  {dayjs(vacation.end_date).format("YYYY-MM-DD")}
+                </p>
+                <p className="col-span-1">{vacation.duration}</p>
+                <p className="col-span-1">{vacation.ref_year}</p>
+              </div>
+            ))}
         </div>
       </div>
     </div>

@@ -39,6 +39,10 @@
   @apply bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-2xl focus:ring-blue-500 focus:border-blue-500 block w-full placeholder:text-gray-400 placeholder:font-normal  p-2.5;
 }
 
+.input_disabled {
+  @apply bg-gray-400 border border-gray-300 text-gray-700 text-sm rounded-2xl  block w-full p-2.5;
+}
+
 .label {
   @apply text-gray-700 text-sm font-bold mb-2;
 }
@@ -49,6 +53,10 @@
 
 .button {
   @apply bg-[#484dff] hover:bg-blue-700 text-white text-xs rounded-full;
+}
+
+.button_disabled {
+  @apply bg-[#7074dc] text-gray-300 text-xs rounded-full;
 }
 
 .flex-center {
