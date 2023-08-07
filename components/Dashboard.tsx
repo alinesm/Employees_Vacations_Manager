@@ -114,6 +114,7 @@ function Dashboard() {
       <AddEmployee
         handleSubmit={handleCreateEmployee}
         setEmployeeBasicInfo={setEmployeeBasicInfo}
+        employeeBasicInfo={employeeBasicInfo}
       />
 
       <p className="title">Employees List</p>

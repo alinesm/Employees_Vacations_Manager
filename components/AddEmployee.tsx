@@ -4,9 +4,14 @@ import React from "react";
 type Props = {
   handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
   setEmployeeBasicInfo: (value: any) => void;
+  employeeBasicInfo: EmployeeBasicInfoState;
 };
 
-function AddEmployee({ handleSubmit, setEmployeeBasicInfo }: Props) {
+function AddEmployee({
+  handleSubmit,
+  setEmployeeBasicInfo,
+  employeeBasicInfo,
+}: Props) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmployeeBasicInfo((prev: EmployeeBasicInfoState) => ({
       ...prev,
@@ -23,6 +28,7 @@ function AddEmployee({ handleSubmit, setEmployeeBasicInfo }: Props) {
             className="input"
             type="text"
             name="name"
+            value={employeeBasicInfo.name}
             onChange={handleChange}
             placeholder="Employee Name"
             required
@@ -34,6 +40,7 @@ function AddEmployee({ handleSubmit, setEmployeeBasicInfo }: Props) {
             className="input"
             type="text"
             name="role"
+            value={employeeBasicInfo.role}
             onChange={handleChange}
             placeholder="Employee Role"
             required
@@ -45,6 +52,7 @@ function AddEmployee({ handleSubmit, setEmployeeBasicInfo }: Props) {
             className="input_date"
             type="date"
             name="hiring_date"
+            value={employeeBasicInfo.hiring_date}
             onChange={handleChange}
             required
           />
