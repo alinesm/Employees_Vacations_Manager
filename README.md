@@ -8,7 +8,15 @@ Employee's Vacations Manager App is an intuitive tool to streamline solution for
    - Add new employee with fields for name, role, and hiring date.
    - See a consolidated list of all employees registered in the system.
    - Each employee has a clickable icon leading to a modal with vacations detailed.
-2. For vacations: - Add a vacation period to an employee with fields for start date and end date. - See a consolided list of all vacations taken by the selected employee with: - Start and end dates - Duration - Reference year: reference of the number of complete years an employee has been with the company when they took that specific vacation. It offers a clear timeline to differentiate between vacations taken in different years of employment.
+2. For vacations:
+   - Add a vacation period to an employee with fields for start date and end date.
+   - See a consolided list of all vacations taken by the selected employee with:
+   - Start and end dates
+   - Duration
+   - Reference year: reference of the number of complete years an employee has been with the company when they took that specific vacation. It offers a clear timeline to differentiate between vacations taken in different years of employment.
+
+### Screenshots
+
 <div>
 <img src="./public/images/dashboard.png" alt="Screenshot of the application" width="250"/>
 <img src="./public/images/screen1.png" alt="Screenshot of the application" width="250" />
@@ -16,18 +24,20 @@ Employee's Vacations Manager App is an intuitive tool to streamline solution for
 <img src="./public/images/screen3.png" alt="Screenshot of the application" width="250" />
 </div>
 
-### Business Roles
+## Business Rules
+
+### Requirements
 
 The application was designed to follow the business rules below:
 
-1. it's necessary to be able to register employees with the following details:
-   Name, Role, Hiring Date and Vacation Periods.
+1. it's necessary register employees with the following details:
+   - Name, Role, Hiring Date and Vacation Periods.
 2. To register a vacation is necessary to, provide the start date and end date of the vacation period, following the rules below:
    - It's possible to register one or more periods for each employee
-   - Each employee earns 30 days of vacation for every 12-month period.
+   - Each employee earns 30 days of vacation for every 12-month period
    - The first vacation period can only be scheduled to start at least 12 months after the hiring date.
    - Not allow the registration of overlapping vacation periods for the same employee.
-   - Vacations can be split into up to three periods,
+   - Vacations can be split into up to three periods
    - One of them must not be less than 14 consecutive days
    - Minimum vacation period for the others are not less than 5 consecutive days
 
@@ -46,7 +56,7 @@ For a more streamlined user experience in the application, certain assumptions w
    - Second vacation duration (assuming the entire 30 days are used in this period): 01/01/2022 to 01/12/2022
    - The time frame for logging a new vacation: 01/01/2023 to 01/12/2023
 
-### Technical Tools
+## Technical Tools
 
 The application was developed using Next.js, a React framework for production.
 
@@ -84,7 +94,7 @@ CREATE TABLE vacations (
 );
 ```
 
-### API Routes
+## API Routes
 
 The application has two API routes:
 
@@ -92,7 +102,7 @@ The application has two API routes:
 2. /api/vacations/[id]: responsible for GET the list of vacations by employee_id.
 3. /api/vacations: responsible for the POST a vacation into vacations table.
 
-### Future Improvements
+## Future Improvements
 
 1. Allow the user to edit the employee's information.
 2. Allow the user to edit the employee's vacation periods.
