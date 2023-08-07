@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import AddVacationPeriod from "./AddVacationPeriod";
 import dayjs from "dayjs";
 import {
-  ClickedEmployeeType,
+  EmployeeBasicInfoWithId,
   EmployeeVacationInfoState,
   EmployeeVacationListType,
 } from "@/app/types";
@@ -14,7 +14,7 @@ type Props = {
   employeeVacationInfo: EmployeeVacationInfoState;
   setEmployeeVacationInfo: (value: EmployeeVacationInfoState) => void;
   setEmployeeVacationList: (value: EmployeeVacationListType) => void;
-  clickedEmployee: ClickedEmployeeType;
+  clickedEmployee: EmployeeBasicInfoWithId;
 };
 
 function ModalEmployeeVacations({

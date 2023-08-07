@@ -1,11 +1,11 @@
 import React from "react";
 import EmployeeRecord from "./EmployeeRecord";
 import TableHeader from "./TableHeader";
-import { ClickedEmployeeType } from "@/app/types";
+import { EmployeeBasicInfoWithId } from "@/app/types";
 
 type Props = {
-  handleOpenModal: (employeeClicked: ClickedEmployeeType) => void;
-  employeesList: ClickedEmployeeType[];
+  handleOpenModal: (employeeClicked: EmployeeBasicInfoWithId) => void;
+  employeesList: EmployeeBasicInfoWithId[];
 };
 
 function EmployeesTable({ handleOpenModal, employeesList }: Props) {

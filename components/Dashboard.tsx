@@ -1,6 +1,6 @@
 "use client";
 import {
-  ClickedEmployeeType,
+  EmployeeBasicInfoWithId,
   EmployeeBasicInfoState,
   EmployeeVacationInfoState,
   EmployeeVacationListType,
@@ -21,13 +21,16 @@ function Dashboard() {
   const [loadingEmployeeList, setLoadingEmployeeList] =
     useState<boolean>(false);
   const [reloadEmployeeList, setReloadEmployeeList] = useState<boolean>(false);
-  const [employeesList, setEmployeesList] = useState<ClickedEmployeeType[]>([]);
-  const [clickedEmployee, setClickedEmployee] = useState<ClickedEmployeeType>({
-    id: "",
-    name: "",
-    role: "",
-    hiring_date: "",
-  });
+  const [employeesList, setEmployeesList] = useState<EmployeeBasicInfoWithId[]>(
+    []
+  );
+  const [clickedEmployee, setClickedEmployee] =
+    useState<EmployeeBasicInfoWithId>({
+      id: "",
+      name: "",
+      role: "",
+      hiring_date: "",
+    });
   const [employeeVacationList, setEmployeeVacationList] =
     useState<EmployeeVacationListType>({
       availableQtyDays: 0,
@@ -42,7 +45,7 @@ function Dashboard() {
       ref_year: 0,
     });
 
-  function handleOpenModal(employeeClicked: ClickedEmployeeType) {
+  function handleOpenModal(employeeClicked: EmployeeBasicInfoWithId) {
     setOpenModal(true);
     setClickedEmployee(employeeClicked);
   }

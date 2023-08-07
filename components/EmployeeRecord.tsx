@@ -1,11 +1,11 @@
 import React from "react";
 import { FaRegFileAlt } from "react-icons/fa";
 import dayjs from "dayjs";
-import { ClickedEmployeeType } from "@/app/types";
+import { EmployeeBasicInfoWithId } from "@/app/types";
 
 type Props = {
-  handleOpenModal: (employee: ClickedEmployeeType) => void;
-  info: ClickedEmployeeType;
+  handleOpenModal: (employee: EmployeeBasicInfoWithId) => void;
+  info: EmployeeBasicInfoWithId;
 };
 
 function EmployeeRecord({ handleOpenModal, info }: Props) {

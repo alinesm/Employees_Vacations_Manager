@@ -1,6 +1,6 @@
 "use client";
 import {
-  ClickedEmployeeType,
+  EmployeeBasicInfoWithId,
   EmployeeVacationInfoState,
   EmployeeVacationListType,
 } from "@/app/types";
@@ -10,7 +10,7 @@ import React from "react";
 type Props = {
   employeeVacationInfo: EmployeeVacationInfoState;
   setEmployeeVacationInfo: (value: EmployeeVacationInfoState) => void;
-  clickedEmployee: ClickedEmployeeType;
+  clickedEmployee: EmployeeBasicInfoWithId;
   inputDateError: string;
   setInputDateError: (value: string) => void;
   employeeVacationList: EmployeeVacationListType;

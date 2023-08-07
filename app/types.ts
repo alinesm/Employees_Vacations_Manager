@@ -11,7 +11,7 @@ export type EmployeeVacationInfoState = {
   ref_year: number;
 };
 
-export type ClickedEmployeeType = {
+export type EmployeeBasicInfoWithId = {
   id: string | number;
   name: string;
   role: string;
