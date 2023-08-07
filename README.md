@@ -11,9 +11,9 @@ Employee's Vacations Manager App is an intuitive tool to streamline solution for
 2. **For vacations:**
    - Add a vacation period to an employee with fields for start date and end date
    - See a consolided list of all vacations taken by the selected employee with:
-   - Start and end dates
-   - Duration
-   - Reference year: reference of the number of complete years an employee has been with the company when they took that specific vacation. It offers a clear timeline to differentiate between vacations taken in different years of employment
+		- Start and end dates
+		- Duration
+		- Reference year: reference of the number of complete years an employee has been with the company when they took that specific vacation. It offers a clear timeline to differentiate between vacations taken in different years of employment
 
 ### Screenshots
 
