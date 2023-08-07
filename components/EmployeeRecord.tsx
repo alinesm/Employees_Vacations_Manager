@@ -1,8 +1,14 @@
 import React from "react";
 import { FaRegFileAlt } from "react-icons/fa";
 import dayjs from "dayjs";
+import { ClickedEmployeeType } from "@/app/types";
 
-function EmployeeRecord({ handleOpenModal, info }) {
+type Props = {
+  handleOpenModal: (employee: ClickedEmployeeType) => void;
+  info: ClickedEmployeeType;
+};
+
+function EmployeeRecord({ handleOpenModal, info }: Props) {
   return (
     <div className="gridTable  record ">
       <p className="col-span-1">{info.id}</p>

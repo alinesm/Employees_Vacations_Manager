@@ -2,6 +2,20 @@
 import React, { useEffect, useState } from "react";
 import AddVacationPeriod from "./AddVacationPeriod";
 import dayjs from "dayjs";
+import {
+  ClickedEmployeeType,
+  EmployeeVacationInfoState,
+  EmployeeVacationListType,
+} from "@/app/types";
+
+type Props = {
+  setOpenModal: (value: boolean) => void;
+  employeeVacationList: EmployeeVacationListType;
+  employeeVacationInfo: EmployeeVacationInfoState;
+  setEmployeeVacationInfo: (value: EmployeeVacationInfoState) => void;
+  setEmployeeVacationList: (value: EmployeeVacationListType) => void;
+  clickedEmployee: ClickedEmployeeType;
+};
 
 function ModalEmployeeVacations({
   setOpenModal,
@@ -10,10 +24,12 @@ function ModalEmployeeVacations({
   setEmployeeVacationInfo,
   setEmployeeVacationList,
   clickedEmployee,
-}) {
-  const [inputDateError, setInputDateError] = useState("");
-  const [loadingVacationsList, setLoadingVacationsList] = useState(false);
-  const [reloadVacationsList, setReloadVacationsList] = useState(false);
+}: Props) {
+  const [inputDateError, setInputDateError] = useState<string>("");
+  const [loadingVacationsList, setLoadingVacationsList] =
+    useState<boolean>(false);
+  const [reloadVacationsList, setReloadVacationsList] =
+    useState<boolean>(false);
 
   const fetchEmployeeVacations = async () => {
     try {

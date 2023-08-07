@@ -1,29 +1,48 @@
 "use client";
+import {
+  ClickedEmployeeType,
+  EmployeeBasicInfoState,
+  EmployeeVacationInfoState,
+  EmployeeVacationListType,
+} from "@/app/types";
 import AddEmployee from "./AddEmployee";
 import EmployeesTable from "./EmployeesTable";
 import ModalEmployeeVacations from "./ModalEmployeeVacations";
 import React, { useEffect, useState } from "react";
 
 function Dashboard() {
-  const [openModal, setOpenModal] = useState(false);
-  const [employeeBasicInfo, setEmployeeBasicInfo] = useState({
+  const [openModal, setOpenModal] = useState<boolean>(false);
+  const [employeeBasicInfo, setEmployeeBasicInfo] =
+    useState<EmployeeBasicInfoState>({
+      name: "",
+      role: "",
+      hiring_date: "",
+    });
+  const [loadingEmployeeList, setLoadingEmployeeList] =
+    useState<boolean>(false);
+  const [reloadEmployeeList, setReloadEmployeeList] = useState<boolean>(false);
+  const [employeesList, setEmployeesList] = useState<ClickedEmployeeType[]>([]);
+  const [clickedEmployee, setClickedEmployee] = useState<ClickedEmployeeType>({
+    id: "",
     name: "",
     role: "",
     hiring_date: "",
   });
-  const [loadingEmployeeList, setLoadingEmployeeList] = useState(false);
-  const [reloadEmployeeList, setReloadEmployeeList] = useState(false);
-  const [employeesList, setEmployeesList] = useState([]);
-  const [clickedEmployee, setClickedEmployee] = useState({});
-  const [employeeVacationList, setEmployeeVacationList] = useState([]);
-  const [employeeVacationInfo, setEmployeeVacationInfo] = useState({
-    start_date: "",
-    end_date: "",
-    duration: "",
-    ref_year: "",
-  });
+  const [employeeVacationList, setEmployeeVacationList] =
+    useState<EmployeeVacationListType>({
+      availableQtyDays: 0,
+      monthsWorked: 0,
+      vacations: [],
+    });
+  const [employeeVacationInfo, setEmployeeVacationInfo] =
+    useState<EmployeeVacationInfoState>({
+      start_date: "",
+      end_date: "",
+      duration: 0,
+      ref_year: 0,
+    });
 
-  function handleOpenModal(employeeClicked) {
+  function handleOpenModal(employeeClicked: ClickedEmployeeType) {
     setOpenModal(true);
     setClickedEmployee(employeeClicked);
   }

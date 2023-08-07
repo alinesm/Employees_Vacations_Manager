@@ -1,6 +1,21 @@
 "use client";
+import {
+  ClickedEmployeeType,
+  EmployeeVacationInfoState,
+  EmployeeVacationListType,
+} from "@/app/types";
 import dayjs from "dayjs";
 import React from "react";
+
+type Props = {
+  employeeVacationInfo: EmployeeVacationInfoState;
+  setEmployeeVacationInfo: (value: EmployeeVacationInfoState) => void;
+  clickedEmployee: ClickedEmployeeType;
+  inputDateError: string;
+  setInputDateError: (value: string) => void;
+  employeeVacationList: EmployeeVacationListType;
+  setReloadVacationsList: (value: boolean) => void;
+};
 
 function AddVacationPeriod({
   employeeVacationInfo,
@@ -10,7 +25,7 @@ function AddVacationPeriod({
   setInputDateError,
   employeeVacationList,
   setReloadVacationsList,
-}) {
+}: Props) {
   const disableInputs =
     employeeVacationList.monthsWorked < 12 ||
     employeeVacationList.availableQtyDays < 1;
@@ -19,11 +34,16 @@ function AddVacationPeriod({
     setInputDateError("You must work at least 12 months to take vacations");
   }
 
-  function handleChange(e) {
-    setEmployeeVacationInfo((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const value =
+      e.target.name === "duration" || e.target.name === "ref_year"
+        ? parseInt(e.target.value, 10)
+        : e.target.value;
+
+    setEmployeeVacationInfo({
+      ...employeeVacationInfo,
+      [e.target.name]: value,
+    });
   }
 
   async function handleSubmitVacation(event: React.FormEvent<HTMLFormElement>) {
@@ -82,8 +102,8 @@ function AddVacationPeriod({
       setEmployeeVacationInfo({
         start_date: "",
         end_date: "",
-        duration: "",
-        ref_year: "",
+        duration: 0,
+        ref_year: 0,
       });
 
       return data;

@@ -1,8 +1,14 @@
 import React from "react";
 import EmployeeRecord from "./EmployeeRecord";
 import TableHeader from "./TableHeader";
+import { ClickedEmployeeType } from "@/app/types";
 
-function EmployeesTable({ handleOpenModal, employeesList }) {
+type Props = {
+  handleOpenModal: (employeeClicked: ClickedEmployeeType) => void;
+  employeesList: ClickedEmployeeType[];
+};
+
+function EmployeesTable({ handleOpenModal, employeesList }: Props) {
   return (
     <div className="box">
       <TableHeader />

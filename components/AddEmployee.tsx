@@ -1,8 +1,14 @@
+import { EmployeeBasicInfoState } from "@/app/types";
 import React from "react";
 
-function AddEmployee({ handleSubmit, setEmployeeBasicInfo }) {
-  const handleChange = (e) => {
-    setEmployeeBasicInfo((prev) => ({
+type Props = {
+  handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+  setEmployeeBasicInfo: (value: any) => void;
+};
+
+function AddEmployee({ handleSubmit, setEmployeeBasicInfo }: Props) {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmployeeBasicInfo((prev: EmployeeBasicInfoState) => ({
       ...prev,
       [e.target.name]: e.target.value,
     }));
