@@ -1,6 +1,6 @@
 "use client";
 import dayjs from "dayjs";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 function AddVacationPeriod({
   employeeVacationInfo,
@@ -9,7 +9,16 @@ function AddVacationPeriod({
   inputDateError,
   setInputDateError,
   employeeVacationList,
+  setReloadVacationsList,
 }) {
+  const disableInputs =
+    employeeVacationList.monthsWorked < 12 ||
+    employeeVacationList.availableQtyDays < 1;
+
+  if (employeeVacationList.monthsWorked < 12) {
+    setInputDateError("You must work at least 12 months to take vacations");
+  }
+
   function handleChange(e) {
     setEmployeeVacationInfo((prev) => ({
       ...prev,
@@ -28,7 +37,7 @@ function AddVacationPeriod({
       return;
     }
 
-    const duration = endDate.diff(startDate, "day");
+    const duration = endDate.diff(startDate, "day") + 1;
 
     if (duration < 5) {
       setInputDateError("The minimum duration of a vacation is 5 days");
@@ -64,11 +73,20 @@ function AddVacationPeriod({
       });
 
       if (!response.ok) {
+        response.text().then((text) => setInputDateError(text));
         throw new Error("HTTP error " + response.status);
       }
 
       const data = await response.json();
-      console.log("post employee vacations", data);
+      setReloadVacationsList(true);
+      setEmployeeVacationInfo({
+        start_date: "",
+        end_date: "",
+        duration: "",
+        ref_year: "",
+      });
+
+      return data;
     } catch (error) {
       console.error("Failed to fetch vacations:", error);
     }
@@ -84,11 +102,13 @@ function AddVacationPeriod({
           <div className="flex flex-col">
             <label className="label">Start Date</label>
             <input
-              className="input_date h-8"
+              className={
+                disableInputs ? "input_disabled h-8" : "input_date h-8"
+              }
               type="date"
               name="start_date"
               onChange={handleChange}
-              disabled={!employeeVacationList.isAvailableToVacation}
+              disabled={disableInputs}
               required
             />
           </div>
@@ -96,30 +116,35 @@ function AddVacationPeriod({
             <label className="label">End Date</label>
             <div className="flex ">
               <input
-                className="input_date h-8"
+                className={
+                  disableInputs ? "input_disabled h-8" : "input_date h-8"
+                }
                 type="date"
                 name="end_date"
                 onChange={handleChange}
-                disabled={!employeeVacationList.isAvailableToVacation}
+                disabled={disableInputs}
                 required
               />
               <button
-                className="button ml-8 px-4 h-8"
+                className={
+                  disableInputs
+                    ? " button_disabled ml-8 px-4 h-8"
+                    : "button ml-8 px-4 h-8"
+                }
                 type="submit"
-                disabled={!employeeVacationList.isAvailableToVacation}
+                disabled={disableInputs}
               >
                 Save
               </button>
             </div>
           </div>
         </div>
-        {employeeVacationList.daysAvailable > 0 &&
-        employeeVacationList?.vacations?.length > 0 ? (
+        {employeeVacationList.availableQtyDays > 0 ? (
           <p className="text-gray-500 text-xs pt-1">
-            Days available: {employeeVacationList.daysAvailable}
+            Days available: {employeeVacationList.availableQtyDays}
           </p>
         ) : (
-          <p className="text-red-500 text-xs pt-1">No vacation's days left</p>
+          <p className="text-red-500 text-xs pt-1">No days left</p>
         )}
 
         <p className="text-red-500 text-xs pt-1">{inputDateError}</p>

@@ -1,5 +1,4 @@
 import React from "react";
-import dayjs from "dayjs";
 
 function AddEmployee({ handleSubmit, setEmployeeBasicInfo }) {
   const handleChange = (e) => {
@@ -10,7 +9,7 @@ function AddEmployee({ handleSubmit, setEmployeeBasicInfo }) {
   };
 
   return (
-    <form className="box" onSubmit={handleSubmit}>
+    <form className="box items-center " onSubmit={handleSubmit}>
       <div className="flex-center  gap-5">
         <div>
           <label className="label">Name</label>
@@ -45,7 +44,7 @@ function AddEmployee({ handleSubmit, setEmployeeBasicInfo }) {
           />
         </div>
       </div>
-      <button className="button py-1.5 mt-2" type="submit">
+      <button className="button w-20 py-1.5 mt-2" type="submit">
         Enviar
       </button>
     </form>
