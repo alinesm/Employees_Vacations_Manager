@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 
-export const generateParsedDates = (employeeInfo) => {
+export const generateParsedDates = (employeeInfo: any) => {
   const hiringDate = dayjs(employeeInfo[0].hiring_date);
   const today = dayjs();
   const yearsWorked = Math.floor(today.diff(hiringDate, "month") / 12);
@@ -16,9 +16,9 @@ export const generateParsedDates = (employeeInfo) => {
 };
 
 export const isSelectedPeriodValid = (
-  vacationStart,
-  vacationEnd,
-  employeeInfo
+  vacationStart: dayjs.Dayjs,
+  vacationEnd: dayjs.Dayjs,
+  employeeInfo: any
 ) => {
   const hiringDate = dayjs(employeeInfo[0].hiring_date);
   const today = dayjs();
@@ -33,12 +33,20 @@ export const isSelectedPeriodValid = (
   );
 };
 
-function isBetween(date, dateStart, dateEnd) {
+function isBetween(
+  date: dayjs.Dayjs,
+  dateStart: dayjs.Dayjs,
+  dateEnd: dayjs.Dayjs
+) {
   return date.isAfter(dateStart) && date.isBefore(dateEnd);
 }
 
-export function checkOverlaps(filteredVacations, start_date, end_date) {
-  return filteredVacations.some((vacation) => {
+export function checkOverlaps(
+  filteredVacations: any,
+  start_date: dayjs.Dayjs,
+  end_date: dayjs.Dayjs
+) {
+  return filteredVacations.some((vacation: any) => {
     const vacationStart = dayjs(vacation.start_date);
     const vacationEnd = dayjs(vacation.end_date);
     return (

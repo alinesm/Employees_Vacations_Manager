@@ -6,6 +6,7 @@ import {
   generateParsedDates,
   isSelectedPeriodValid,
 } from "../helpers";
+import { RowDataPacket } from "mysql2";
 
 const MAX_DAYS = 30;
 const MIN_VACATION_DURATION = 5;
@@ -17,7 +18,7 @@ export async function POST(request: Request) {
   try {
     const employeeInfo = await repository.getEmployeeInfo(employee_id);
 
-    if (employeeInfo.length === 0) {
+    if (!employeeInfo) {
       return new NextResponse("Employee not found", { status: 404 });
     }
 
@@ -62,11 +63,26 @@ export async function POST(request: Request) {
       );
     }
 
-    const filteredVacations = vacations.filter((vacation) => {
-      const vacationStart = dayjs(vacation.start_date);
-      const vacationEnd = dayjs(vacation.end_date);
-      return isSelectedPeriodValid(vacationStart, vacationEnd, employeeInfo);
-    });
+    let filteredVacations: any;
+    if (Array.isArray(vacations)) {
+      filteredVacations = (vacations as RowDataPacket[]).filter(
+        (vacation: any) => {
+          const vacationStart = dayjs(vacation.start_date);
+          const vacationEnd = dayjs(vacation.end_date);
+          return isSelectedPeriodValid(
+            vacationStart,
+            vacationEnd,
+            employeeInfo
+          );
+        }
+      );
+    }
+
+    // const filteredVacations = vacations.filter((vacation) => {
+    //   const vacationStart = dayjs(vacation.start_date);
+    //   const vacationEnd = dayjs(vacation.end_date);
+    //   return isSelectedPeriodValid(vacationStart, vacationEnd, employeeInfo);
+    // });
 
     const overlaps = checkOverlaps(
       filteredVacations,
@@ -80,7 +96,7 @@ export async function POST(request: Request) {
     }
 
     const scheduledDaysCount = filteredVacations.reduce(
-      (acc, curr) => acc + curr.duration,
+      (acc: any, curr: any) => acc + curr.duration,
       0
     );
 

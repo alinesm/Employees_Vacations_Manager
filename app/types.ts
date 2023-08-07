@@ -11,6 +11,15 @@ export type EmployeeVacationInfoState = {
   ref_year: number;
 };
 
+export type EmployeeVacationsList = {
+  id: string | number;
+  employee_id: string | number;
+  start_date: string;
+  end_date: string;
+  duration: number;
+  ref_year: number;
+};
+
 export type EmployeeBasicInfoWithId = {
   id: string | number;
   name: string;
