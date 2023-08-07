@@ -51,23 +51,19 @@ function AddVacationPeriod({
 
     const startDate = dayjs(employeeVacationInfo.start_date);
     const endDate = dayjs(employeeVacationInfo.end_date);
-
-    if (endDate.isBefore(startDate)) {
-      setInputDateError("The end date must be after the start date");
-      return;
-    }
-
     const duration = endDate.diff(startDate, "day") + 1;
 
-    if (duration < 5) {
-      setInputDateError("The minimum duration of a vacation is 5 days");
-      return;
-    }
+    // if (endDate.isBefore(startDate)) {
+    //   setInputDateError("The end date must be after the start date");
+    // }
 
-    if (duration > 30) {
-      setInputDateError("The maximum duration of a vacation is 30 days");
-      return;
-    }
+    // if (duration < 5) {
+    //   setInputDateError("The minimum duration of a vacation is 5 days");
+    // }
+
+    // if (duration > 30) {
+    //   setInputDateError("The maximum duration of a vacation is 30 days");
+    // }
 
     const today = dayjs();
 
@@ -105,7 +101,7 @@ function AddVacationPeriod({
         duration: 0,
         ref_year: 0,
       });
-
+      setInputDateError("");
       return data;
     } catch (error) {
       console.error("Failed to fetch vacations:", error);
