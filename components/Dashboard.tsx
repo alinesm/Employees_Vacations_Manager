@@ -32,11 +32,7 @@ function Dashboard() {
       hiring_date: "",
     });
   const [employeeVacationList, setEmployeeVacationList] =
-    useState<EmployeeVacationListType>({
-      availableQtyDays: 0,
-      monthsWorked: 0,
-      vacations: [],
-    });
+    useState<EmployeeVacationListType | null>(null);
   const [employeeVacationInfo, setEmployeeVacationInfo] =
     useState<EmployeeVacationInfoState>({
       start_date: "",
@@ -46,8 +42,8 @@ function Dashboard() {
     });
 
   function handleOpenModal(employeeClicked: EmployeeBasicInfoWithId) {
-    setOpenModal(true);
     setClickedEmployee(employeeClicked);
+    setOpenModal(true);
   }
 
   async function handleCreateEmployee(event: React.FormEvent<HTMLFormElement>) {

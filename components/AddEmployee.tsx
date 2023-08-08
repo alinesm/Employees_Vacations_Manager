@@ -49,7 +49,7 @@ function AddEmployee({
         <div>
           <label className="label">Hiring Date</label>
           <input
-            className="input_date"
+            className="input_hiring_date"
             type="date"
             name="hiring_date"
             value={employeeBasicInfo.hiring_date}

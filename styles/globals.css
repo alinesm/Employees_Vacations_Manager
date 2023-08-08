@@ -32,7 +32,11 @@
 }
 
 .input {
-  @apply bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-2xl focus:ring-blue-500 focus:border-blue-500 block w-full placeholder:text-gray-400 placeholder:font-normal  p-2.5;
+  @apply bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-2xl focus:ring-blue-500 focus:border-blue-500 block w-full placeholder:text-gray-400 placeholder:font-normal  p-2.5;
+}
+
+.input_hiring_date {
+  @apply bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-2xl focus:ring-blue-500 focus:border-blue-500 block w-full placeholder:text-gray-400 placeholder:font-normal  p-2.5;
 }
 
 .input_date {
