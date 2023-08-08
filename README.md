@@ -1,8 +1,8 @@
 ## Employee's Vacations Manager App
 
-Employee's Vacations Manager App is an intuitive tool to streamline solution for managing company employee vacations. This application offers a comprehensive view of each employee's details and their vacation history, offering for the user a more efficient vacation planning.
+Employee's Vacations Manager App is an intuitive tool to streamline solution for managing company employee vacations. This application offers a comprehensive view of each employee's details and their vacation history, offering the user more efficient vacation planning.
 
-click on the link below to access the deployed application:
+**Click on the link to access the deployed application:**
 https://employees-vacations-manager-system.vercel.app/
 
 ### Features
@@ -13,7 +13,7 @@ https://employees-vacations-manager-system.vercel.app/
    - Each employee has a clickable icon leading to a modal with vacations detailed
 2. **For vacations:**
    - Add a vacation period to an employee with fields for start date and end date
-   - See a consolided list of all vacations taken by the selected employee with:
+   - See a consolidated list of all vacations taken by the selected employee with:
      - Start and end dates
      - Duration
      - Reference year: reference of the number of complete years an employee has been with the company when they took that specific vacation. It offers a clear timeline to differentiate between vacations taken in different years of employment
@@ -33,8 +33,8 @@ https://employees-vacations-manager-system.vercel.app/
 
 The application was designed to follow the business rules below:
 
-1. it's necessary register employees with the following details:
-   - Name, Role, Hiring Date and Vacation Periods
+1. it's necessary to register employees with the following details:
+   - Name, Role, Hiring Date, and Vacation Periods
 2. To register a vacation is necessary to, provide the start date and end date of the vacation period, following the rules below:
    - It's possible to register one or more periods for each employee
    - Each employee earns 30 days of vacation for every 12-month period
@@ -51,7 +51,7 @@ For a more streamlined user experience in the application, certain assumptions w
 1. Vacation days from one year do not roll over to the next.
    - It's assumed that employees utilize all of their earned vacation days within the year they were accrued
    - Thus, for every 12 months worked, the employee takes the full 30 days of vacation in the subsequent year
-2. The duration of the vacation period is calculated based on start date and end date with the following formula:
+2. The duration of the vacation period is calculated based on the start date and end date with the following formula:
    - duration = end_date - start_date + 1
 3. Vacations can only be registered within a 12-month window from the last employment anniversary. For instance:
    - Hiring date: 01/01/2020
@@ -66,15 +66,15 @@ The application was developed using Next.js, a React framework for production.
 - **TypeScript:** to ensure type safety and enhance code quality and maintainability
 - **Tailwind CSS:** a utility-first CSS framework for rapidly building custom user interfaces
 - **Next.js API routes:** The backend structure of the application is solidified by the built-in API system of Next.js, facilitating seamless request handling
-- **MySQL:** relational database choosen to ensure efficient, secure, and scalable data management
+- **MySQL:** relational database chosen to ensure efficient, secure, and scalable data management
 
 ### Database Model
 
 The database model was designed to follow the business rules below:
 
 - The database has two tables: employees and vacations:
-  - The employees table has the following fields: id, name, role, hiring_date
-  - The vacations table has the following fields: id, employee_id, start_date, end_date,duration, ref_year
+  - The employee's table has the following fields: id, name, role, hiring_date
+  - The vacations table has the following fields: id, employee_id, start_date, end_date, duration, ref_year
 
 ```bash
 # SQL script to create the database and tables
